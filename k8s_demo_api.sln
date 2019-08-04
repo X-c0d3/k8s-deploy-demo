@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "k8s_demo_api", "k8s_demo_api\k8s_demo_api.csproj", "{CA1C1B7D-187F-4A71-B7F6-FFCF8735B54D}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{ACC99AA9-93F3-4B80-8ADA-1A89BCE55D10}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA1C1B7D-187F-4A71-B7F6-FFCF8735B54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA1C1B7D-187F-4A71-B7F6-FFCF8735B54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA1C1B7D-187F-4A71-B7F6-FFCF8735B54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA1C1B7D-187F-4A71-B7F6-FFCF8735B54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC99AA9-93F3-4B80-8ADA-1A89BCE55D10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC99AA9-93F3-4B80-8ADA-1A89BCE55D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC99AA9-93F3-4B80-8ADA-1A89BCE55D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC99AA9-93F3-4B80-8ADA-1A89BCE55D10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

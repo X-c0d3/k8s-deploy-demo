@@ -1,0 +1,123 @@
+# Install Docker
+curl -sSL get.docker.com | sh && sudo usermod pi -aG docker
+
+
+# Install K8s
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+
+sudo apt install kubeadm
+
+sudo swapoff -a
+
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+
+
+
+
+
+
+
+kubeadm join 192.168.200.10:6443 --token pu3e3n.7keqmsu1ebd9h8ny \
+    --discovery-token-ca-cert-hash sha256:47811e536fdd4af20d9d99bed7584d647ef3f5e963f074b27f681c205cb09d35
+	
+
+curl -SL "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')" \
+| kubectl apply -f -
+
+kubectl get nodes
+kubectl get nodes --show-labels
+
+kubectl get pods --all-namespaces
+kubectl describe nodes
+kubectl get svc --namespace kube-system
+
+kubectl -n kube-system delete pod kube-flannel-ds-t5gx2
+
+
+
+
+# Install Dashboard
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta1/aio/deploy/recommended.yaml
+
+
+#Access Dashbord with Proxy URL
+
+http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/login
+
+# Setup Credential
+
+kubectl create serviceaccount k8sadmin -n kube-system
+kubectl create clusterrolebinding k8sadmin --clusterrole=cluster-admin --serviceaccount=kube-system:k8sadmin
+
+kubectl get secret -n kube-system | grep k8sadmin | cut -d " " -f1 | xargs -n 1 | xargs kubectl get secret -o 'jsonpath={.data.token}' -n kube-system | base64 --decode
+
+
+# Token
+
+eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrOHNhZG1pbi10b2tlbi00Y2g3diIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrOHNhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6ImY0YTlhNzk5LTUwYTYtNGM1Yi1iMzU5LTYxNzJkYTRiY2RlNyIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprOHNhZG1pbiJ9.O-aYEwqtoHRjdMbnoA2hpI2CdruHzKQ8J807K2QTJyPXHqcwQmwYmKm3WBsRXpp6XY5m_u_AWFGf7r0SZuXe-VtLh4E1o2A4NIbI_B97BZYjZvCagGWUSbXhmVBn1KFYNFd5iZaPKj81nIMxu0dytultRLjSSy6-mgTitJJJSud473QbcuApC06A8LQlfcK6CBi_ht1Xg_hMrpxMPZYlvvm3V78KqIqdwxxACIzzCQp4a9u37qCop3FFRmPoFdChTMTBjyYoqza7XgTctphmUnk7lsG28ewRMEbVxo8QV4j0TyTwh6Ona7geylWgYlJMXmmz8YA0IBXGZhvhMsVVyQ
+
+# For test (But build from docker-compose better)
+docker build -f Dockerfile.api -t acid3_api:v1 .
+
+docker-compose build
+
+
+docker push xxxx/k8sdemoapi:v1
+
+
+
+
+
+kubectl apply -f kube-deployment.yaml
+kubectl delete -f kube-deployment.yaml
+
+
+
+
+
+
+
+kubectl get deployment 
+kubectl scale --replicas=5 deployment/k8s_demo_api
+kubectl get deployment
+
+
+
+# How to update our application ?
+1. change docker-compose.yml  
+    - image: ${DOCKER_REGISTRY-}k8sdemoapi:v3 (Count version)
+2. docker-compose build  
+3. docker push ${DOCKER_REGISTRY-}/k8sdemoapi:v3
+4. kube-deployment.yaml 
+    - replicas
+    - image 
+
+
+
+
+
+docker-compose up -d
+docker-compose down
+docker-compose log
+
+
+Delete docker image with all tags
+ #docker images | grep chainz | tr -s ' ' | cut -d ' ' -f 2 | xargs -I {} docker rmi erangaeb/chainz:{}
+
+
+
+
+Fix Docker Permission without "sudo"
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+sudo chmod 666 /var/run/docker.sock
+
+
+
+while true; do sleep 5; curl http://192.168.99.104:5001/api/values | json_pp; done
+
+Ref : https://pleasereleaseme.net/deploy-a-dockerized-asp-net-core-application-to-azure-kubernetes-service-using-a-vsts-ci-cd-pipeline-part-4/

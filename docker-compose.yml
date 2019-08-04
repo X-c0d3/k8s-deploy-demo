@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  k8s_demo_api:
+    image: ${DOCKER_REGISTRY-}k8sdemoapi:v2
+    build:
+      context: .
+      dockerfile: k8s_demo_api/Dockerfile

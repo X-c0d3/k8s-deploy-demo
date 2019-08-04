@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  k8s_demo_api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=https://+:443;http://+:5001
+      - ASPNETCORE_HTTPS_PORT=44391
+    ports:
+      - "12434:80"
+      - "5001:443"
+    volumes:
+      - ~/.aspnet/https:/root/.aspnet/https:ro
+      - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
