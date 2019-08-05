@@ -17,5 +17,9 @@ RUN dotnet publish "k8s_demo_api.csproj" -c Release -o /app
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
+
+# Set ASP.NET Core environment variables
+ENV ASPNETCORE_ENVIRONMENT="Production"
 ENV ASPNETCORE_URLS http://*:5001
+
 ENTRYPOINT ["dotnet", "k8s_demo_api.dll"]

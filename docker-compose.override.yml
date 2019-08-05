@@ -7,8 +7,12 @@ services:
       - ASPNETCORE_URLS=https://+:443;http://+:5001
       - ASPNETCORE_HTTPS_PORT=44391
     ports:
-      - "12434:80"
-      - "5001:443"
+      - "5001:5001"
+      - "12434:443"
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+  #rabbitmq:
+  #  ports:
+  #    - "15672:15672"
+  #    - "5672:5672"

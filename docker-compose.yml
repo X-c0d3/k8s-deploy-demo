@@ -2,7 +2,13 @@ version: '3.4'
 
 services:
   k8s_demo_api:
-    image: ${DOCKER_REGISTRY-}k8sdemoapi:v2
+    image: giffy2499/k8sdemoapi:v2 #image: eshop/webmvc:${TAG:-latest}
     build:
       context: .
       dockerfile: k8s_demo_api/Dockerfile
+    #depends_on:
+    #  - catalog.api
+    #  - rabbitmq
+
+  #rabbitmq:
+  # image: rabbitmq:3-management
