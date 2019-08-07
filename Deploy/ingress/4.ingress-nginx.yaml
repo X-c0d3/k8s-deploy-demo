@@ -1,0 +1,29 @@
+#4. สร้าง ingress ให้ nginx
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx # ห้ามลืมบรรทัดนี้!!!
+    kubernetes.io/tls-acme: "true" # ถ้าใช้ kube-lego ให้ไว้ใน nginx
+    ingress.kubernetes.io/limit-rps: "10" # ใส่ rate-limit ด้วยก็ดี
+  name: nginx-ingress
+spec:
+  rules:
+  # เพิ่ม backend services ที่นี่ได้เลย
+  - host: example.com
+    http:
+      paths:
+      - backend:
+          serviceName: example
+          servicePort: 80
+  - host: example.com
+    http:
+      paths:
+      - backend:
+          serviceName: example
+          servicePort: 80
+  tls:
+  - secretName: gce-ingress # ค่านี้ให้จำไว้ เพราะจะเอาไปใช้ใน gce-ingress
+    # ใส่ tls certificate ที่นี้,​ kube-lego ก็ใส่ที่นี่
+    hosts:
+    - example.com

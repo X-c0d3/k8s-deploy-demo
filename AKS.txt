@@ -1,0 +1,16 @@
+for ASK CLI 
+
+az login
+
+
+Create a proxy tunnel to the k8s dashboard service
+az ask browse -n mymanaedk8s -g rg-east-mk8s 
+
+Increases the node count in your agenpool to desired number
+az aks scale -n mynanagedk8s -g rg-east-mk9s -c 10
+
+Show current control plane and agentpool k8s version and available upgrade versions
+az aks get-versions -n mymanaedk8s -g rg-east-mk8s 
+
+Upgrades in a rolling fashion using cordon and drain processes for agentpool and control plane
+az aks upgrade -n mymanaedk8s g rg-east-mk8s  -k 1.8.2

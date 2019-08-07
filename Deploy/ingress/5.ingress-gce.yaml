@@ -1,0 +1,13 @@
+#5. สร้าง ingress ให้ gce
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: gce # ห้ามลืมบรรทัดนี้!!!
+  name: gce-ingress
+spec:
+  backend: # ส่งทุก requests เข้าไปที่ nginx
+    serviceName: nginx-ingress
+    servicePort: 80
+  tls:
+  - secretName: gce-ingress # ตั้งชื่อเดียวกันกับ secretName ใน nginx

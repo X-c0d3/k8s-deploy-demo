@@ -1,0 +1,13 @@
+#1. สร้าง ConfigMap เพื่อ config nginx
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-ingress
+  labels:
+    app: nginx-ingress
+data:
+  body-size: 5m
+  enable-vts-status: "true"
+  hsts: "false" # ถ้าจะใช้ HTTPS อยู่แล้วก็ควรใช้ HSTS
+  server-tokens: "false"
+  use-gzip: "true"

@@ -1,0 +1,21 @@
+
+
+Ingress
+ - https
+ - Global IP (Anycast)
+ - Can Enable CDN
+ - Gzip with Nginx
+
+ Internet
+=> gce-ingress l7
+=> nginx-ingress (NodePort)
+=> backend-service (ClusterIP)
+
+
+
+
+
+https://github.com/acoshift/k8s-app/tree/master/gce-nginx-ingress
+https://akomljen.com/kubernetes-nginx-ingress-controller/
+https://www.digitalocean.com/community/tutorials/how-to-set-up-an-nginx-ingress-on-digitalocean-kubernetes-using-helm
+http://rahmonov.me/posts/nginx-ingress-controller/
