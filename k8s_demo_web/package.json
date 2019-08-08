@@ -16,7 +16,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "https://10.106.187.162/web/",
+  "homepage": "http://10.96.127.243:3000/web",
   "browserslist": {
     "production": [
       ">0.2%",
