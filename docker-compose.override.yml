@@ -12,6 +12,7 @@ services:
     volumes:
       - ~/.aspnet/https:/root/.aspnet/https:ro
       - ~/.microsoft/usersecrets:/root/.microsoft/usersecrets:ro
+      
   #rabbitmq:
   #  ports:
   #    - "15672:15672"

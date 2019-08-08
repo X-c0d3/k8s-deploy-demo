@@ -10,5 +10,16 @@ services:
     #  - catalog.api
     #  - rabbitmq
 
+  k8s_demo_web:
+    image: giffy2499/k8sdemoweb:v2
+    build: 
+      context: .
+      dockerfile: k8s_demo_web/Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - CHOKIDAR_USEPOLLING=true
+
   #rabbitmq:
   # image: rabbitmq:3-management

@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-nginx
+  namespace: ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx    
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:  
+  rules:
+  - http:
+      paths:
+      - path: /
+        backend:
+          serviceName: k8sdemoweb
+          servicePort: 3000    
+      - path: /web
+        backend:
+          serviceName: k8sdemoweb
+          servicePort: 3000
