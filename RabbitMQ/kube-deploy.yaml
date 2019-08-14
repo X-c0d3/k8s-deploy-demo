@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq
+  namespace: a3-dev
+spec:
+  type: ClusterIP
+  selector:
+    app: rabbitmq
+  ports:
+  - name: amqp
+    protocol: TCP
+    port: 5672
+  - name: mgmt
+    protocol: TCP
+    port: 15672
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: a3-dev
+spec:
+  selector:
+    matchLabels:
+      app: rabbitmq
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+      - name: rabbitmq
+        image: ${DOCKER_REGISTRY}acid.rabbitmq:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rabbitmq
+  namespace: a3-dev
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: .
+    http:
+      paths:
+      - path: /rabbitmq/
+        backend:
+          serviceName: rabbitmq
+          servicePort: 15672
+
+
+#https://qiita.com/yurak/items/53db262d214786da6837

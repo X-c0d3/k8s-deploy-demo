@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+ rabbitmq:
+    #Note credential: User: acid  Pass: F!ymch2019
+    image: rabbitmq:3.6.9
+    container_name: rabbitmq
+    labels:
+          NAME: "ACID3 - RabbitMQ Services"
+    command: sh -c "rabbitmq-plugins enable rabbitmq_management; rabbitmq-server"
+    volumes:
+      - ./configs/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro
+      - ./configs/definitions.json:/etc/rabbitmq/definitions.json:ro
+    ports:
+      - 5672:5672
+      - 15672:15672
