@@ -163,3 +163,18 @@ while true; do sleep 5; curl http://192.168.99.104:5001/api/values | json_pp; do
 
 Ref : https://pleasereleaseme.net/deploy-a-dockerized-asp-net-core-application-to-azure-kubernetes-service-using-a-vsts-ci-cd-pipeline-part-4/
 Ref : https://docs.microsoft.com/en-us/dotnet/architecture/microservices/multi-container-microservice-net-applications/multi-container-applications-docker-compose
+
+
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: private-image-test-1
+spec:
+  containers:
+    - name: uses-private-image
+      image: $PRIVATE_IMAGE_NAME
+      imagePullPolicy: Always
+      command: [ "echo", "SUCCESS" ]
+EOF
