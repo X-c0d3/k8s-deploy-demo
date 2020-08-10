@@ -1,0 +1,18 @@
+replicaCount: 1
+image:
+  useImagePullSecrets: false
+  pullPolicy: Always
+  tag: "$(build.buildId)"
+  repository: "$(registryName).azurecr.io/$(projectName)"
+service:
+  type: ClusterIP
+  internalPort: 5001
+  externalPort: 5001
+  internalSSLPort: 443
+  externalSSLPort: 443
+ingress:
+  enabled: false
+labels:
+  environment: "$(Release.EnvironmentName)"
+  tier: backend
+  version: "$(Build.SourceBranchName)"

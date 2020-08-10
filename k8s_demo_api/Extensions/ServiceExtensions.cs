@@ -24,15 +24,13 @@ namespace k8s_demo_api.Extensions
 
         public static void ConfigureSwagger(this IServiceCollection services)
         {
-            services.AddSwaggerGen(c =>
-            {
+            services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1",
-                    new Info
-                    {
-                        Version = "v1",
-                        Title = "Acid API (.net core)",
-                        Description = "ASP.NET Core Web API",
-                    });
+                   new Microsoft.OpenApi.Models.OpenApiInfo {
+                       Version = "v1",
+                       Title = "Test API (.net core)",
+                       Description = "ASP.NET Core Web API",
+                   });
             });
         }
 

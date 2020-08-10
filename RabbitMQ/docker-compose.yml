@@ -1,12 +1,12 @@
-version: '2'
+version: "2"
 
 services:
- rabbitmq:
+  rabbitmq:
     #Note credential: User: acid  Pass: F!ymch2019
     image: rabbitmq:3.6.9
     container_name: rabbitmq
     labels:
-          NAME: "ACID3 - RabbitMQ Services"
+      NAME: "Test - RabbitMQ Services"
     command: sh -c "rabbitmq-plugins enable rabbitmq_management; rabbitmq-server"
     volumes:
       - ./configs/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro

@@ -24,7 +24,7 @@ namespace k8s_demo_api.Extensions
 
                 app.UseSwagger(c =>
                 {
-                    c.PreSerializeFilters.Add((swaggerDoc, httpRequest) => { swaggerDoc.BasePath = basePath; });
+                   // c.PreSerializeFilters.Add((swaggerDoc, httpRequest) => { swaggerDoc.BasePath = basePath; });
                 });
             }
 
