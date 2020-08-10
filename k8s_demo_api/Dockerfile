@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app
 
 EXPOSE 5001
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 WORKDIR /src
@@ -22,8 +23,8 @@ RUN ls -la .
 
 # Set ASP.NET Core environment variables
 ENV ASPNETCORE_ENVIRONMENT="Production"
-ENV ASPNETCORE_URLS=https://+:443;http://+:5001
-ENV ASPNETCORE_HTTPS_PORT=443
+ENV ASPNETCORE_URLS=https://+:443;https://+:5001
+ENV ASPNETCORE_HTTPS_PORT=443;5001
 
 
 
